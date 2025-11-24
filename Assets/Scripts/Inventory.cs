@@ -42,21 +42,24 @@ public class Inventory : MonoBehaviour
     // removes items, returns true if item is found and removed.
     public void RemoveItemFromInventory()
     {
-        ItemObject item = items[0];
-        Vector3 CurrentPosition = transform.position;
-        Vector3 forward = transform.forward;
+        if (gameManager.GetGameState() == GameManager.GameState.GAMEPLAY && items.Count > 0)
+        {
+            ItemObject item = items[0];
+            Vector3 CurrentPosition = transform.position;
+            Vector3 forward = transform.forward;
 
-        Vector3 newPosition = CurrentPosition + forward;
-        newPosition += new Vector3(0, 1, 0);
-        Quaternion currentRotation = transform.rotation;
-        quaternion newRotation = currentRotation * quaternion.Euler(0, 0, 180);
+            Vector3 newPosition = CurrentPosition + forward;
+            newPosition += new Vector3(0, 1, 0);
+            Quaternion currentRotation = transform.rotation;
+            quaternion newRotation = currentRotation * quaternion.Euler(0, 0, 180);
 
-        GameObject newItem = Instantiate(item.gameObject, newPosition, newRotation, worldItemsTransform);
-        newItem.SetActive(true);
+            GameObject newItem = Instantiate(item.gameObject, newPosition, newRotation, worldItemsTransform);
+            newItem.SetActive(true);
 
-        items.Remove(item);
-        Destroy(item.gameObject);
-        OutputInventoryToConsole();
+            items.Remove(item);
+            Destroy(item.gameObject);
+            OutputInventoryToConsole();
+        }
     }
 
     private void OutputInventoryToConsole()
@@ -66,6 +69,6 @@ public class Inventory : MonoBehaviour
         {
             current = (current + "(Name: " + current_item.itemName + "  Desc: " + current_item.description + "), ");
         }
-        print (current + "]"); 
+        Debug.Log(current + "]"); 
     }
 }
