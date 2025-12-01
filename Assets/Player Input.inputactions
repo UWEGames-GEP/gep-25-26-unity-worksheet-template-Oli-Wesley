@@ -504,6 +504,17 @@
                 },
                 {
                     "name": "",
+                    "id": "57fb202e-57cc-48ee-8ce7-2598241d751a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "841c45df-9ff4-4a3d-a0f1-5631aad6fa6c",
                     "path": "<Keyboard>/q",
                     "interactions": "",

@@ -10,24 +10,30 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private GameState state;
+    [SerializeField] private GameObject inventoryUI;
     private bool hasChangedState = false;
     void Start()
     {
         state = GameState.GAMEPLAY;
+        inventoryUI.SetActive(false);
     }
 
     // Update is called once per frame
     public void TogglePause()
     {
         if (state == GameState.GAMEPLAY)
-        {  
-                state = GameState.PAUSE;
-                hasChangedState = true;
+        {
+            state = GameState.PAUSE;
+            hasChangedState = true;
+            inventoryUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
         else if (state == GameState.PAUSE)
         {
-                state = GameState.GAMEPLAY;
-                hasChangedState = true;
+            state = GameState.GAMEPLAY;
+            hasChangedState = true;
+            inventoryUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 

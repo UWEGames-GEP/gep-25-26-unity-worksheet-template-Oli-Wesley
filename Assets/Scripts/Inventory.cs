@@ -28,8 +28,12 @@ public class Inventory : MonoBehaviour
     }
 
     // adds item to the items list
-    public bool AddItemToInventory(ItemObject item) 
-    { 
+    public bool AddItemToInventory(ItemObject item)
+    {
+        // stop it adding the same item twice if collides twice. 
+        if (items.Contains(item))
+            return false;
+
         if (gameManager.GetGameState() == GameManager.GameState.GAMEPLAY)
         {
             items.Add(item);
@@ -40,11 +44,10 @@ public class Inventory : MonoBehaviour
     }
 
     // removes items, returns true if item is found and removed.
-    public void RemoveItemFromInventory()
+    public void RemoveItemFromInventory(ItemObject item)
     {
-        if (gameManager.GetGameState() == GameManager.GameState.GAMEPLAY && items.Count > 0)
+        if (items.Count > 0)
         {
-            ItemObject item = items[0];
             Vector3 CurrentPosition = transform.position;
             Vector3 forward = transform.forward;
 
@@ -62,6 +65,20 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void RemoveItemFromInventory()
+    {
+        if (gameManager.GetGameState() == GameManager.GameState.GAMEPLAY && items.Count > 0)
+            RemoveItemFromInventory(items[0]);
+    }
+
+    public void RemoveItemFromInventory(int pos)
+    {
+        if (pos < items.Count)
+        {
+            RemoveItemFromInventory(items[pos]);
+        }
+    }
+
     private void OutputInventoryToConsole()
     {
         string current = "Current Inventory: \n [";
@@ -69,6 +86,6 @@ public class Inventory : MonoBehaviour
         {
             current = (current + "(Name: " + current_item.itemName + "  Desc: " + current_item.description + "), ");
         }
-        Debug.Log(current + "]"); 
+        Debug.Log(current + "]");
     }
 }
